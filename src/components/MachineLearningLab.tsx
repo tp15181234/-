@@ -490,7 +490,7 @@ export const MachineLearningLab: React.FC<MachineLearningLabProps> = ({ onNaviga
                     onClick={handleNextSpeedQuiz}
                     className="w-full mt-2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-1 shadow-xs"
                   >
-                    <span>다음 문제 풀기</span>
+                    <span>{speedQuizIdx < ML_SPEED_QUIZ_LIST.length - 1 ? '다음 문제 풀기' : '결과 확인하기'}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -510,7 +510,7 @@ export const MachineLearningLab: React.FC<MachineLearningLabProps> = ({ onNaviga
                 <p className="text-xs text-slate-500 mt-2">
                   {speedQuizScore === ML_SPEED_QUIZ_LIST.length
                     ? '🎉 완벽합니다! 기계학습 구분 문제는 기말고사에서 100% 맞힐 수 있습니다!'
-                    : speedQuizScore >= 6
+                    : speedQuizScore >= 8
                     ? '👍 좋습니다! 틀린 개념은 [3초 판별 공식 가이드]를 통해 한 번 더 복습하세요!'
                     : '💪 괜찮습니다! 3초 판별 공식을 읽고 다시 도전해 보세요!'}
                 </p>
