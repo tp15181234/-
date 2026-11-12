@@ -1,0 +1,8 @@
+{
+  "name": "정보 기말고사 마스터 - 파이썬 & 알고리즘 순서도",
+  "description": "자연어 처리, 기계학습(지도·비지도·강화), 순서도 기호, 실생활 문제 분석(입력·출력·조건·변수), 파이썬 프로그래밍 기말고사 대비 문제 은행 및 AI 문제 출제기",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
