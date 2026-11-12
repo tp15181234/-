@@ -504,20 +504,25 @@ ${code}
 // In-memory & file-backed store for student test submissions
 import fs from 'fs';
 
-const DATA_DIR = path.resolve(__dirname, 'data');
+const DATA_DIR = process.env.VERCEL ? path.resolve('/tmp', 'data') : path.resolve(__dirname, 'data');
 const SUBMISSIONS_FILE = path.resolve(DATA_DIR, 'submissions.json');
 const ALERTS_FILE = path.resolve(DATA_DIR, 'unauthorized_alerts.json');
 const TEACHER_EMAIL = 'tp15181234@gmail.com';
 
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(SUBMISSIONS_FILE)) {
-    fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify([], null, 2), 'utf-8');
-  }
-  if (!fs.existsSync(ALERTS_FILE)) {
-    fs.writeFileSync(ALERTS_FILE, JSON.stringify([], null, 2), 'utf-8');
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(SUBMISSIONS_FILE)) {
+      fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+    if (!fs.existsSync(ALERTS_FILE)) {
+      fs.writeFileSync(ALERTS_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+  } catch (err) {
+    // Graceful fallback to memory on read-only environments
+    console.warn('Storage directory initialization note:', err);
   }
 }
 
@@ -926,4 +931,9 @@ async function startServer() {
   });
 }
 
-startServer();
+// Start server in dev or standalone production container (Cloud Run, local)
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
